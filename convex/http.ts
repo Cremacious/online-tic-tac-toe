@@ -51,12 +51,23 @@ http.route({
       const name = `${first_name || ""} ${last_name || ""}`.trim();
 
       try {
+        const existingUser = await ctx.runQuery(api.users.getUserByClerkId, {
+          clerkId: id,
+        });
+
+        if (existingUser) {
+          console.log(`User with clerkId ${id} already exists, skipping creation`);
+          return new Response("User already exists", { status: 200 });
+        }
+
         await ctx.runMutation(api.users.syncUser, {
           clerkId: id,
           email,
           name,
           image: image_url,
         });
+
+        console.log(`Successfully created user with clerkId: ${id}`);
       } catch (error) {
         console.log("Error creating user:", error);
         return new Response("Error creating user", { status: 500 });
