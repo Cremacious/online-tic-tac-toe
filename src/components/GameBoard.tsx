@@ -1,8 +1,10 @@
 'use client';
 import { useState } from 'react';
 
+
 const GameBoard = () => {
   const [clickedSquares, setClickedSquares] = useState<Set<number>>(new Set());
+
 
   const handleClickedSquare = (index: number) => {
     setClickedSquares((prev) => {
@@ -35,9 +37,14 @@ const GameBoard = () => {
       </button>
     );
   };
+
+  // if (!user) return <div>Loading...</div>;
   return (
     <>
-      {' '}
+      <div>
+        {/* <h2>{user.username}</h2>
+        <p>Email: {user.emailAddresses[0]?.emailAddress}</p> */}
+      </div>{' '}
       <div className="min-h-screen flex flex-col items-center justify-center p-8">
         <h1 className="text-4xl font-bold mb-8 text-center">Tic Tac Toe</h1>
 
